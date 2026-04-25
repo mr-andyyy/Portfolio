@@ -1,111 +1,203 @@
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, Calendar, GraduationCap, MapPin, Sparkles } from 'lucide-react';
+
+type Exp = {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  current?: boolean;
+  bullets: string[];
+  stack: string[];
+  accent: 'cyan' | 'violet' | 'lime';
+};
+
+const EXPERIENCES: Exp[] = [
+  {
+    title: 'Software Developer',
+    company: 'OptyStack Tech Pvt Ltd',
+    location: 'Gurugram, Haryana',
+    period: 'Aug 2025 — Present',
+    current: true,
+    bullets: [
+      'Building a multi-tenant SaaS Management Dashboard on Next.js App Router with Prisma + PostgreSQL.',
+      'Integrated 20+ enterprise apps for unified user/access management with alerts and reporting.',
+      'Architected AWS backend services across EC2, Lambda, EventBridge, and Parameter Store.',
+      'Owned a custom GitHub Actions CI/CD pipeline for repeatable, automated deploys.',
+    ],
+    stack: ['Next.js', 'Prisma', 'PostgreSQL', 'AWS', 'GitHub Actions'],
+    accent: 'cyan',
+  },
+  {
+    title: 'Software Development Engineer',
+    company: 'NetNXT Network',
+    location: 'Gurugram, Haryana',
+    period: 'Mar 2025 — Jul 2025',
+    bullets: [
+      'Shipped frontend features and REST integrations on the company website using Next.js + Express + MongoDB.',
+      'Built a parameter-based cost calculator tool supporting multiple service tiers.',
+      'Crafted dynamic, interactive UI components with smooth data fetching and state.',
+    ],
+    stack: ['Next.js', 'Express.js', 'MongoDB', 'REST APIs'],
+    accent: 'violet',
+  },
+];
+
+const dotColor = (a: Exp['accent']) =>
+  a === 'cyan' ? 'bg-neon-cyan' : a === 'violet' ? 'bg-neon-violet' : 'bg-neon-lime';
+const ringColor = (a: Exp['accent']) =>
+  a === 'cyan' ? 'ring-glow-cyan' : a === 'violet' ? 'ring-glow-violet' : 'ring-glow-lime';
+const tagBg = (a: Exp['accent']) =>
+  a === 'cyan'
+    ? 'border-neon-cyan/30 text-neon-cyan bg-neon-cyan/5'
+    : a === 'violet'
+    ? 'border-neon-violet/30 text-neon-violet bg-neon-violet/5'
+    : 'border-neon-lime/30 text-neon-lime bg-neon-lime/5';
 
 const Experience = () => {
-  const experiences = [
-    {
-      title: 'Product Management Intern',
-      company: 'Cashkaro',
-      location: 'Gurugram, India',
-      period: 'September 2025 - Present',
-      achievements: [
-        'Conducted user retention analysis for post-exit feature, suggesting strategic changes to increase user trust',
-        'Led end-to-end Browser Extension project: SERP research, network domain mapping, prototyping, competitive analysis, and PRD documentation',
-        'Improved user activation rate through comprehensive growth product analysis of pre-exit feature',
-        'Performed funnel analysis of complete user journey for Missing Ticket feature',
-      ],
-      color: 'yellow',
-    },
-    {
-      title: 'Graduate Engineer Trainee',
-      company: 'Datacultr',
-      location: 'Gurugram, India',
-      period: 'August 2024 - August 2025',
-      achievements: [
-        'Built Elastic Search API providing clients organized device data for simlock feature applications',
-        'Developed autolock API using Elastic Search and ORM queries for improved device lock management',
-        'Implemented SENDGRID email notification system for client approval workflows',
-        'Enhanced client experience through organized data presentation and automated notification systems',
-      ],
-      color: 'blue',
-    },
-  ];
-
   return (
-    <section id="experience" className="min-h-screen flex items-center py-24 px-6 lg:px-12">
+    <section id="experience" className="relative py-32 px-6 lg:px-12">
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
-            Work <span className="text-yellow-400">Experience</span>
+          <div className="reveal font-mono text-xs tracking-widest uppercase text-neon-violet mb-4">
+            // 03 — trajectory
+          </div>
+          <h2 className="reveal reveal-delay-1 font-display text-5xl md:text-7xl font-bold mb-5">
+            Where I've <span className="text-gradient-cv">shipped code</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Driving product excellence through innovation and data-driven insights
+          <p className="reveal reveal-delay-2 text-zinc-400 max-w-2xl mx-auto text-lg">
+            From building production SaaS to crafting calculators users actually want to
+            use — every role left a footprint in the codebase.
           </p>
         </div>
 
-        <div className="space-y-12">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="relative bg-zinc-900 rounded-2xl p-8 md:p-12 hover:bg-zinc-800 transition-all duration-300 group"
-            >
-              <div className="absolute -left-3 top-12 w-6 h-6 bg-yellow-400 rounded-full hidden md:block group-hover:scale-125 transition-transform duration-300"></div>
+        {/* Timeline */}
+        <div className="relative">
+          <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-cyan/40 via-neon-violet/40 to-neon-lime/40 md:-translate-x-1/2" />
 
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="md:col-span-2">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-yellow-400 transition-colors duration-300">
-                    {exp.title}
-                  </h3>
-                  <div className="flex items-center space-x-2 text-xl font-semibold text-gray-300 mb-4">
-                    <Briefcase size={20} className="text-yellow-400" />
-                    <span>{exp.company}</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col justify-start space-y-2">
-                  <div className="flex items-center text-gray-400">
-                    <Calendar size={16} className="mr-2" />
-                    <span className="text-sm">{exp.period}</span>
-                  </div>
-                  <div className="flex items-center text-gray-400">
-                    <MapPin size={16} className="mr-2" />
-                    <span className="text-sm">{exp.location}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {exp.achievements.map((achievement, achIndex) => (
+          <div className="space-y-12">
+            {EXPERIENCES.map((exp, i) => {
+              const left = i % 2 === 0;
+              return (
+                <div
+                  key={exp.company}
+                  className={`reveal reveal-delay-${(i % 4) + 1} relative md:grid md:grid-cols-2 md:gap-12 ${
+                    left ? '' : 'md:[&>div:first-child]:order-2'
+                  }`}
+                >
+                  {/* node */}
                   <div
-                    key={achIndex}
-                    className="flex items-start space-x-4 text-gray-300 group/item hover:text-white transition-colors duration-200"
+                    className={`absolute left-3 md:left-1/2 top-7 -translate-x-1/2 w-4 h-4 rounded-full ${dotColor(
+                      exp.accent
+                    )} ${ringColor(exp.accent)}`}
                   >
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0 group-hover/item:scale-150 transition-transform duration-200"></div>
-                    <p className="leading-relaxed">{achievement}</p>
+                    {exp.current && (
+                      <span
+                        className={`absolute inset-0 rounded-full ${dotColor(
+                          exp.accent
+                        )} animate-ping opacity-75`}
+                      />
+                    )}
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
 
-        <div className="mt-16 bg-gradient-to-r from-zinc-900 to-black border border-zinc-800 rounded-2xl p-8 md:p-12">
-          <div className="flex items-start space-x-6">
-            <div className="w-16 h-16 bg-yellow-400/10 rounded-xl flex items-center justify-center flex-shrink-0">
-              <Briefcase size={32} className="text-yellow-400" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Education</h3>
-              <div className="space-y-3 text-gray-300">
-                <div>
-                  <p className="text-lg font-semibold text-white">
-                    Bachelor of Technology in Electronics and Communication Engineering
+                  {/* card */}
+                  <div className={`pl-10 md:pl-0 ${left ? 'md:pr-12' : 'md:pl-12'}`}>
+                    <div
+                      className="grad-border p-7 hover:-translate-y-1 transition-transform group"
+                      data-cursor="hover"
+                    >
+                      <div className="flex items-center gap-2 mb-3 font-mono text-xs">
+                        <Calendar size={13} className="text-zinc-500" />
+                        <span className="text-zinc-400">{exp.period}</span>
+                        {exp.current && (
+                          <span className="ml-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse" />
+                            now
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="font-display text-2xl font-bold mb-1 group-hover:text-gradient transition-colors">
+                        {exp.title}
+                      </h3>
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-400 mb-5">
+                        <span className="flex items-center gap-1.5">
+                          <Briefcase size={13} className="text-neon-cyan" />
+                          <span className="font-medium text-white">{exp.company}</span>
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <MapPin size={13} className="text-zinc-500" />
+                          {exp.location}
+                        </span>
+                      </div>
+
+                      <ul className="space-y-2.5 mb-5">
+                        {exp.bullets.map((b, idx) => (
+                          <li
+                            key={idx}
+                            className="flex gap-3 text-sm text-zinc-300 leading-relaxed"
+                          >
+                            <Sparkles
+                              size={13}
+                              className={`mt-1 flex-shrink-0 ${
+                                exp.accent === 'cyan'
+                                  ? 'text-neon-cyan'
+                                  : exp.accent === 'violet'
+                                  ? 'text-neon-violet'
+                                  : 'text-neon-lime'
+                              }`}
+                            />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="flex flex-wrap gap-2">
+                        {exp.stack.map((s) => (
+                          <span
+                            key={s}
+                            className={`font-mono text-[11px] px-2.5 py-1 rounded-full border ${tagBg(
+                              exp.accent
+                            )}`}
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* spacer for alternation */}
+                  <div className="hidden md:block" />
+                </div>
+              );
+            })}
+
+            {/* Education node */}
+            <div className="reveal relative md:grid md:grid-cols-2 md:gap-12">
+              <div className="absolute left-3 md:left-1/2 top-7 -translate-x-1/2 w-4 h-4 rounded-full bg-neon-lime ring-glow-lime" />
+              <div className="pl-10 md:pl-0 md:pr-12">
+                <div className="grad-border p-7" data-cursor="hover">
+                  <div className="flex items-center gap-2 mb-3 font-mono text-xs">
+                    <Calendar size={13} className="text-zinc-500" />
+                    <span className="text-zinc-400">2020 — May 2024</span>
+                  </div>
+                  <h3 className="font-display text-2xl font-bold mb-1">
+                    B.Tech, Electronics &amp; Communication
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-zinc-400 mb-4">
+                    <span className="flex items-center gap-1.5">
+                      <GraduationCap size={14} className="text-neon-lime" />
+                      <span className="font-medium text-white">
+                        National Institute of Technology, Jamshedpur
+                      </span>
+                    </span>
+                  </div>
+                  <p className="text-sm text-zinc-300">
+                    CGPA <span className="font-mono text-neon-lime">8.0</span> · Member of the
+                    Competitive Programming Team at SECE · NSS Event Management lead.
                   </p>
-                  <p className="text-yellow-400 font-medium">
-                    National Institute of Technology, Jamshedpur
-                  </p>
-                  <p className="text-sm text-gray-400">CGPA: 7.74 | May 2024</p>
                 </div>
               </div>
+              <div className="hidden md:block" />
             </div>
           </div>
         </div>

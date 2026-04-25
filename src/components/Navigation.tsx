@@ -1,91 +1,148 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
+const NAV = [
+  { name: 'About', href: '#about', n: '01' },
+  { name: 'Skills', href: '#skills', n: '02' },
+  { name: 'Experience', href: '#experience', n: '03' },
+  { name: 'Work', href: '#portfolio', n: '04' },
+  { name: 'Achievements', href: '#achievements', n: '05' },
+  { name: 'Contact', href: '#contact', n: '06' },
+];
+
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('hero');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
-  ];
+  useEffect(() => {
+    const ids = ['hero', ...NAV.map((n) => n.href.slice(1))];
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+    if (!sections.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { threshold: 0.4 }
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+  const go = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    setOpen(false);
   };
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-black/95 backdrop-blur-md py-4' : 'bg-transparent py-6'
+        scrolled ? 'py-3' : 'py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between">
+      <div
+        className={`max-w-7xl mx-auto px-6 lg:px-12 transition-all duration-500 ${
+          scrolled
+            ? 'bg-ink-950/70 backdrop-blur-xl border border-white/10 rounded-full mt-2'
+            : ''
+        }`}
+      >
+        <div className={`flex items-center justify-between ${scrolled ? 'py-2' : ''}`}>
           <a
             href="#hero"
+            data-cursor="hover"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="text-2xl font-bold tracking-tight hover:text-yellow-400 transition-colors duration-300"
+            className="group flex items-center gap-2 font-display text-xl font-bold"
           >
-            OM
+            <span className="relative inline-flex w-9 h-9 rounded-lg bg-gradient-to-br from-neon-cyan via-neon-violet to-neon-lime items-center justify-center shadow-glow group-hover:shadow-glow-violet transition-shadow">
+              <span className="absolute inset-[2px] rounded-md bg-ink-950 flex items-center justify-center font-mono text-sm">
+                AK
+              </span>
+            </span>
+            <span className="hidden sm:inline tracking-tight">
+              anand<span className="text-neon-cyan">.dev</span>
+            </span>
           </a>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className="text-sm font-medium tracking-wide hover:text-yellow-400 transition-colors duration-300 cursor-pointer"
-              >
-                {link.name}
-              </a>
-            ))}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV.map((link) => {
+              const isActive = active === link.href.slice(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  data-cursor="hover"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    go(link.href);
+                  }}
+                  className={`relative px-3.5 py-2 rounded-full font-mono text-[12px] tracking-wide transition-colors ${
+                    isActive ? 'text-white' : 'text-zinc-400 hover:text-white'
+                  }`}
+                >
+                  {isActive && (
+                    <span className="absolute inset-0 rounded-full bg-white/5 border border-white/10" />
+                  )}
+                  <span className="relative">
+                    <span className="text-zinc-600 mr-1">{link.n}.</span>
+                    {link.name}
+                  </span>
+                </a>
+              );
+            })}
           </div>
 
-          <button
-            className="md:hidden text-white hover:text-yellow-400 transition-colors duration-300"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              go('#contact');
+            }}
+            data-cursor="hover"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:border-neon-cyan/50 hover:text-neon-cyan font-mono text-[12px] transition-colors"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <span className="w-1.5 h-1.5 rounded-full bg-neon-cyan animate-pulse" />
+            Hire me
+          </a>
+
+          <button
+            data-cursor="hover"
+            className="md:hidden text-white hover:text-neon-cyan transition-colors"
+            onClick={() => setOpen(!open)}
+            aria-label="toggle menu"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-6 pb-6 space-y-4 animate-fade-in">
-            {navLinks.map((link) => (
+        {open && (
+          <div className="md:hidden mt-5 pb-4 space-y-1 animate-fade-in">
+            {NAV.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToSection(link.href);
+                  go(link.href);
                 }}
-                className="block text-lg font-medium hover:text-yellow-400 transition-colors duration-300 cursor-pointer"
+                className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white/5 transition-colors"
               >
-                {link.name}
+                <span className="font-mono text-xs text-zinc-600">{link.n}.</span>
+                <span className="font-medium">{link.name}</span>
               </a>
             ))}
           </div>

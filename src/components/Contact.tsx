@@ -1,209 +1,295 @@
-import { Mail, Phone, Linkedin, Github, MapPin, Send } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Phone, Send, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 
 const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const contactInfo = [
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91 7004227948',
-      href: 'tel:+917004227948',
-    },
+  const contacts = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'Get in touch',
-      href: 'oindrilamondal9102@gmail.com',
+      value: 'anandkumar4549@gmail.com',
+      href: 'mailto:anandkumar4549@gmail.com',
+      accent: 'cyan',
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: '+91 8210014035',
+      href: 'tel:+918210014035',
+      accent: 'violet',
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      value: 'Connect with me',
-      href: 'https://www.linkedin.com/in/oindrila-mondall-296421206/',
+      value: 'in/anand-kumar-591431211',
+      href: 'https://www.linkedin.com/in/anand-kumar-591431211/',
+      accent: 'lime',
+    },
+    {
+      icon: Github,
+      label: 'GitHub',
+      value: 'github.com/mr-andyyy',
+      href: 'https://github.com/mr-andyyy',
+      accent: 'amber',
     },
     {
       icon: MapPin,
-      label: 'Location',
+      label: 'Based in',
       value: 'Gurugram, India',
       href: '#',
+      accent: 'cyan',
     },
-  ];
+  ] as const;
+
+  const accentText = (a: string) =>
+    a === 'cyan'
+      ? 'text-neon-cyan'
+      : a === 'violet'
+      ? 'text-neon-violet'
+      : a === 'lime'
+      ? 'text-neon-lime'
+      : 'text-amber-300';
+  const accentBg = (a: string) =>
+    a === 'cyan'
+      ? 'bg-neon-cyan/10'
+      : a === 'violet'
+      ? 'bg-neon-violet/10'
+      : a === 'lime'
+      ? 'bg-neon-lime/10'
+      : 'bg-amber-400/10';
 
   return (
-    <section id="contact" className="min-h-screen flex items-center py-24 px-6 lg:px-12">
+    <section id="contact" className="relative py-32 px-6 lg:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
-            Let's <span className="text-yellow-400">Connect</span>
+          <div className="reveal font-mono text-xs tracking-widest uppercase text-neon-cyan mb-4">
+            // 06 — let's connect
+          </div>
+          <h2 className="reveal reveal-delay-1 font-display text-5xl md:text-7xl font-bold mb-5">
+            Got an idea? <span className="text-gradient">Let's build it.</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Open to Product Management opportunities and exciting collaborations
+          <p className="reveal reveal-delay-2 text-zinc-400 max-w-2xl mx-auto text-lg">
+            Always open to interesting problems, full-time roles, freelance, or just a
+            good engineering chat.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div>
-            <div className="space-y-6 mb-12">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.href}
-                  className="flex items-center space-x-6 p-6 bg-zinc-900 rounded-2xl hover:bg-zinc-800 transition-all duration-300 group hover:scale-105"
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10">
+          {/* LEFT — info + stats */}
+          <div className="space-y-4">
+            {contacts.map((c, i) => (
+              <a
+                key={c.label}
+                href={c.href}
+                target={c.href.startsWith('http') ? '_blank' : undefined}
+                rel="noreferrer"
+                data-cursor="hover"
+                className={`reveal reveal-delay-${(i % 5) + 1} group flex items-center gap-5 p-5 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/25 hover:bg-white/[0.04] transition-all`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${accentBg(
+                    c.accent
+                  )} ${accentText(c.accent)} group-hover:scale-110 transition-transform`}
                 >
-                  <div className="w-14 h-14 bg-yellow-400/10 rounded-xl flex items-center justify-center group-hover:bg-yellow-400/20 transition-colors duration-300">
-                    <info.icon size={24} className="text-yellow-400" />
+                  <c.icon size={20} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-mono text-[10px] tracking-widest uppercase text-zinc-500">
+                    {c.label}
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">{info.label}</p>
-                    <p className="text-lg font-semibold group-hover:text-yellow-400 transition-colors duration-300">
-                      {info.value}
-                    </p>
+                  <div className="text-base font-semibold truncate group-hover:text-white transition-colors">
+                    {c.value}
                   </div>
-                </a>
-              ))}
-            </div>
+                </div>
+                <Send
+                  size={16}
+                  className="text-zinc-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
+                />
+              </a>
+            ))}
 
-            <div className="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4">Quick Stats</h3>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <p className="text-3xl font-black text-yellow-400 mb-2">1.5+</p>
-                  <p className="text-sm text-gray-400">Years Experience</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-black text-yellow-400 mb-2">10+</p>
-                  <p className="text-sm text-gray-400">Projects Delivered</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-black text-yellow-400 mb-2">2</p>
-                  <p className="text-sm text-gray-400">PM Certifications</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-black text-yellow-400 mb-2">100%</p>
-                  <p className="text-sm text-gray-400">Commitment</p>
-                </div>
+            <div className="reveal grad-border p-6 mt-2">
+              <h3 className="font-display text-lg font-bold mb-4 flex items-center gap-2">
+                <Sparkles size={16} className="text-neon-lime" />
+                At a glance
+              </h3>
+              <div className="grid grid-cols-3 gap-4">
+                <Stat value="2+" label="Yrs Building" accent="cyan" />
+                <Stat value="20+" label="Apps Integrated" accent="violet" />
+                <Stat value="2203" label="Max Rating" accent="amber" />
               </div>
             </div>
           </div>
 
-          <div className="bg-zinc-900 rounded-2xl p-8 md:p-12">
-            <h3 className="text-3xl font-bold mb-8">Send a Message</h3>
+          {/* RIGHT — form */}
+          <div className="reveal grad-border p-8 md:p-10 relative overflow-hidden">
+            <div className="absolute -top-32 -right-32 w-72 h-72 rounded-full bg-neon-cyan blur-3xl opacity-10" />
+            <div className="absolute -bottom-32 -left-32 w-72 h-72 rounded-full bg-neon-violet blur-3xl opacity-10" />
+            <h3 className="relative font-display text-3xl font-bold mb-2">Send a message</h3>
+            <p className="relative text-zinc-400 mb-8 text-sm">
+              I usually respond within 24 hours.
+            </p>
+
             <form
-              className="space-y-6"
+              className="relative space-y-5"
               onSubmit={async (e) => {
                 e.preventDefault();
                 setIsSending(true);
                 setStatus('idle');
                 setErrorMessage(null);
-
                 try {
                   const resp = await fetch('/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, message }),
                   });
-
                   const data = (await resp.json().catch(() => null)) as
                     | { ok?: boolean; error?: string }
                     | null;
-
                   if (!resp.ok) {
                     throw new Error(data?.error || 'Failed to send message');
                   }
-
                   setStatus('success');
                   setName('');
                   setEmail('');
                   setMessage('');
                 } catch (err) {
                   setStatus('error');
-                  setErrorMessage(err instanceof Error ? err.message : 'Failed to send message');
+                  setErrorMessage(
+                    err instanceof Error ? err.message : 'Failed to send message'
+                  );
                 } finally {
                   setIsSending(false);
                 }
               }}
             >
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-400">
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-black border border-zinc-800 rounded-lg focus:border-yellow-400 focus:outline-none transition-colors duration-300 text-white"
-                  placeholder="John Doe"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-400">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-black border border-zinc-800 rounded-lg focus:border-yellow-400 focus:outline-none transition-colors duration-300 text-white"
-                  placeholder="john@example.com"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-400">
-                  Message
-                </label>
-                <textarea
-                  rows={6}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 bg-black border border-zinc-800 rounded-lg focus:border-yellow-400 focus:outline-none transition-colors duration-300 text-white resize-none"
-                  placeholder="Tell me about your project or opportunity..."
-                ></textarea>
-              </div>
+              <Field
+                label="Your name"
+                input={
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg focus:border-neon-cyan/70 focus:outline-none focus:ring-1 focus:ring-neon-cyan/30 transition-all text-white placeholder-zinc-600"
+                    placeholder="Ada Lovelace"
+                  />
+                }
+              />
+              <Field
+                label="Email"
+                input={
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg focus:border-neon-violet/70 focus:outline-none focus:ring-1 focus:ring-neon-violet/30 transition-all text-white placeholder-zinc-600"
+                    placeholder="ada@compute.dev"
+                  />
+                }
+              />
+              <Field
+                label="Message"
+                input={
+                  <textarea
+                    rows={6}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-lg focus:border-neon-lime/70 focus:outline-none focus:ring-1 focus:ring-neon-lime/30 transition-all text-white placeholder-zinc-600 resize-none"
+                    placeholder="Tell me about the project, the role, or the problem you're chewing on…"
+                  />
+                }
+              />
 
               <button
                 type="submit"
                 disabled={isSending}
-                className="w-full bg-yellow-400 text-black font-bold py-4 rounded-lg hover:bg-yellow-300 transition-colors duration-300 flex items-center justify-center space-x-2 group disabled:opacity-60 disabled:cursor-not-allowed"
+                data-cursor="hover"
+                className="w-full relative overflow-hidden rounded-lg font-semibold py-4 bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-lime bg-[length:200%_200%] animate-gradient-x text-black flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed group"
               >
-                <span>{isSending ? 'Sending...' : 'Send Message'}</span>
+                <span>{isSending ? 'Sending…' : 'Fire away'}</span>
                 <Send
-                  size={20}
-                  className="group-hover:translate-x-1 transition-transform duration-300"
+                  size={18}
+                  className="group-hover:translate-x-1 transition-transform"
                 />
               </button>
 
               {status === 'success' && (
-                <p className="text-sm text-green-400">Message sent successfully.</p>
+                <p className="text-sm text-neon-lime font-mono">
+                  ✓ Message delivered. Talk soon.
+                </p>
               )}
-
               {status === 'error' && (
-                <p className="text-sm text-red-400">{errorMessage ?? 'Failed to send message.'}</p>
+                <p className="text-sm text-red-400 font-mono">
+                  ✗ {errorMessage ?? 'Failed to send message.'}
+                </p>
               )}
             </form>
           </div>
         </div>
 
-        <footer className="mt-24 pt-12 border-t border-zinc-800 text-center">
-          <p className="text-gray-400 mb-4">
-            Designed & Built with passion for great products
-          </p>
-          <p className="text-sm text-gray-600">
-            © 2026 Oindrila Mondal. All rights reserved.
-          </p>
+        {/* Footer */}
+        <footer className="mt-24 pt-10 border-t border-white/10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="font-mono text-xs text-zinc-500">
+              <span className="text-neon-cyan">{'<'}</span>
+              built with React · Tailwind · too much coffee
+              <span className="text-neon-violet">{' />'}</span>
+            </div>
+            <div className="font-mono text-xs text-zinc-600">
+              © {new Date().getFullYear()} Anand Kumar — all wrongs reversed.
+            </div>
+          </div>
         </footer>
       </div>
     </section>
   );
 };
+
+const Field = ({ label, input }: { label: string; input: React.ReactNode }) => (
+  <div>
+    <label className="block font-mono text-[11px] tracking-widest uppercase mb-2 text-zinc-500">
+      {label}
+    </label>
+    {input}
+  </div>
+);
+
+const Stat = ({
+  value,
+  label,
+  accent,
+}: {
+  value: string;
+  label: string;
+  accent: 'cyan' | 'violet' | 'lime' | 'amber';
+}) => (
+  <div>
+    <div
+      className={`font-display text-2xl font-bold ${
+        accent === 'cyan'
+          ? 'text-neon-cyan'
+          : accent === 'violet'
+          ? 'text-neon-violet'
+          : accent === 'lime'
+          ? 'text-neon-lime'
+          : 'text-amber-300'
+      }`}
+    >
+      {value}
+    </div>
+    <div className="font-mono text-[10px] tracking-widest uppercase text-zinc-500 mt-1">
+      {label}
+    </div>
+  </div>
+);
 
 export default Contact;

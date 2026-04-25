@@ -1,123 +1,284 @@
-import { ExternalLink, TrendingUp, Watch, Package } from 'lucide-react';
+import { useRef } from 'react';
+import {
+  ArrowUpRight,
+  Calculator,
+  Github,
+  LayoutDashboard,
+  LineChart,
+  Newspaper,
+  PenSquare,
+  Server,
+  Smartphone,
+} from 'lucide-react';
 
-const Portfolio = () => {
-  const projects = [
-    {
-      title: 'Swiggy Delivery Service',
-      subtitle: 'Product Teardown & Improvement Case Study',
-      description:
-        'Comprehensive analysis of Swiggy\'s delivery service with strategic recommendations for enhancing user experience and operational efficiency.',
-      icon: Package,
-      tags: ['Product Analysis', 'UX Research', 'Market Research'],
-      metrics: ['User Journey Mapping', 'Competitive Analysis', 'Feature Prioritization'],
-    },
-    {
-      title: 'Habit Builder & Tracker',
-      subtitle: 'Product Design from Scratch',
-      description:
-        'Designed a comprehensive habit tracking application that helps users create sustainable routines aligned with their lifestyle and goals.',
-      icon: TrendingUp,
-      tags: ['Product Design', 'User Research', 'Prototyping'],
-      metrics: ['User Personas', 'Feature Roadmap', 'Wireframes'],
-    },
-    {
-      title: 'Maritime Sports Smartwatch',
-      subtitle: 'Product Design & Competitive Analysis',
-      description:
-        'Conceptualized a specialized smartwatch for gym enthusiasts and maritime sports athletes in the Cayman Islands market.',
-      icon: Watch,
-      tags: ['Market Research', 'Competitive Analysis', 'Product Strategy'],
-      metrics: ['Market Sizing', 'Feature Differentiation', 'Go-to-Market'],
-    },
-  ];
+type Project = {
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: typeof Newspaper;
+  tags: string[];
+  highlights: string[];
+  liveUrl?: string;
+  codeUrl?: string;
+  accent: 'cyan' | 'violet' | 'lime' | 'amber' | 'rose';
+  badge?: string;
+};
+
+const PROJECTS: Project[] = [
+  {
+    title: 'SaaS Management Dashboard',
+    subtitle: 'OptyStack · Production',
+    description:
+      'Multi-tenant access-management platform with 20+ enterprise app integrations, custom RBAC, alert workflows and AWS-native backend services.',
+    icon: Server,
+    tags: ['Next.js', 'Prisma', 'PostgreSQL', 'AWS', 'CI/CD'],
+    highlights: [
+      'Multi-tenant data model on Prisma',
+      'Lambda + EventBridge schedulers',
+      'GitHub Actions deploy pipeline',
+    ],
+    accent: 'cyan',
+    badge: 'live · in production',
+  },
+  {
+    title: 'Milk & Muse PoS',
+    subtitle: 'Multi-tenant Point of Sale ecosystem',
+    description:
+      'Full-stack PoS system: a Flutter Android app for in-store ops (orders, thermal printing, coupons) synced in real-time with a React management dashboard via PowerSync\'s offline-first architecture.',
+    icon: Smartphone,
+    tags: ['Flutter', 'Riverpod', 'PowerSync', 'React', 'Fastify', 'Drizzle ORM', 'PostgreSQL'],
+    highlights: [
+      'Offline-first sync via PowerSync',
+      'Bluetooth / USB thermal printing',
+      'Multi-store tenant-scoped data',
+    ],
+    accent: 'rose',
+    badge: 'live · multi-platform',
+  },
+  {
+    title: 'CryptoNewz',
+    subtitle: 'Real-time crypto portfolio tracker',
+    description:
+      'Track 100+ coins with live prices, charts and curated crypto news. Built with React, Redux Toolkit, ChartJS and the RapidAPI ecosystem.',
+    icon: LineChart,
+    tags: ['React', 'Redux Toolkit', 'ChartJS', 'Ant Design', 'RapidAPI'],
+    highlights: [
+      'Global state with Redux Toolkit',
+      'Interactive ChartJS visualizations',
+      'Responsive Ant Design UI',
+    ],
+    liveUrl: 'https://anand-cryptonewz.netlify.app/',
+    codeUrl: 'https://github.com/mr-andyyy/CryptoNewz',
+    accent: 'violet',
+  },
+  {
+    title: 'Travel Blog',
+    subtitle: 'Full-stack blogging platform',
+    description:
+      'Auth-protected CRUD blog with image uploads, user-specific posts and a clean Material UI surface — Next.js front, Express + Postgres back.',
+    icon: PenSquare,
+    tags: ['Next.js', 'Node.js', 'Express', 'PostgreSQL', 'Material UI'],
+    highlights: [
+      'JWT auth & role-aware routes',
+      'Image-supported CRUD posts',
+      'PostgreSQL-backed persistence',
+    ],
+    liveUrl: 'https://anand-travel-blog.netlify.app/',
+    codeUrl: 'https://github.com/mr-andyyy/travel-blog',
+    accent: 'lime',
+  },
+  {
+    title: 'Cost Calculator Engine',
+    subtitle: 'NetNXT · Internal tool',
+    description:
+      'A multi-service pricing calculator with parameter-driven tiers, used by sales for instant client quotes — eliminated manual spreadsheet math.',
+    icon: Calculator,
+    tags: ['Next.js', 'Express.js', 'MongoDB'],
+    highlights: [
+      'Parameter-based pricing engine',
+      'Service-tier configuration UI',
+      'Reusable rate-card schema',
+    ],
+    accent: 'amber',
+  },
+];
+
+const accentText = (a: Project['accent']) =>
+  a === 'cyan'
+    ? 'text-neon-cyan'
+    : a === 'violet'
+    ? 'text-neon-violet'
+    : a === 'lime'
+    ? 'text-neon-lime'
+    : a === 'rose'
+    ? 'text-rose-400'
+    : 'text-amber-300';
+
+const accentBlob = (a: Project['accent']) =>
+  a === 'cyan'
+    ? 'bg-neon-cyan'
+    : a === 'violet'
+    ? 'bg-neon-violet'
+    : a === 'lime'
+    ? 'bg-neon-lime'
+    : a === 'rose'
+    ? 'bg-rose-400'
+    : 'bg-amber-400';
+
+const accentBorder = (a: Project['accent']) =>
+  a === 'cyan'
+    ? 'border-neon-cyan/30'
+    : a === 'violet'
+    ? 'border-neon-violet/30'
+    : a === 'lime'
+    ? 'border-neon-lime/30'
+    : a === 'rose'
+    ? 'border-rose-400/30'
+    : 'border-amber-400/30';
+
+const TiltCard = ({ project, index }: { project: Project; index: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(1100px) rotateX(${(-y * 8).toFixed(
+      2
+    )}deg) rotateY(${(x * 10).toFixed(2)}deg) translateY(-4px)`;
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
+  const onLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = 'perspective(1100px) rotateX(0) rotateY(0) translateY(0)';
+  };
 
   return (
-    <section id="portfolio" className="min-h-screen flex items-center py-24 px-6 lg:px-12 bg-zinc-950">
-      <div className="max-w-7xl mx-auto w-full">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-black mb-6">
-            Featured <span className="text-yellow-400">Work</span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Case studies showcasing product thinking and problem-solving approach
-          </p>
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      data-cursor="hover"
+      className={`reveal reveal-delay-${(index % 4) + 1} tilt grad-border relative overflow-hidden group`}
+      style={{
+        background:
+          'radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.06), transparent 40%), #0a0a0f',
+      }}
+    >
+      <div
+        className={`absolute -top-20 -right-20 w-56 h-56 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity ${accentBlob(
+          project.accent
+        )}`}
+      />
+      <div className="relative p-7">
+        <div className="flex items-start justify-between mb-5">
+          <div
+            className={`w-12 h-12 rounded-xl flex items-center justify-center bg-white/5 border ${accentBorder(
+              project.accent
+            )} ${accentText(project.accent)}`}
+          >
+            <project.icon size={22} />
+          </div>
+          {project.badge && (
+            <span
+              className={`font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full border ${accentBorder(
+                project.accent
+              )} ${accentText(project.accent)} bg-white/5`}
+            >
+              {project.badge}
+            </span>
+          )}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="bg-black border border-zinc-800 rounded-2xl overflow-hidden group hover:border-yellow-400 transition-all duration-500 hover:scale-105"
+        <h3 className="font-display text-2xl font-bold mb-1">{project.title}</h3>
+        <p className={`text-sm font-mono mb-4 ${accentText(project.accent)}`}>
+          {project.subtitle}
+        </p>
+        <p className="text-zinc-400 text-sm leading-relaxed mb-5">
+          {project.description}
+        </p>
+
+        <ul className="space-y-1.5 mb-6">
+          {project.highlights.map((h) => (
+            <li
+              key={h}
+              className="flex items-center gap-2 text-[13px] text-zinc-400"
             >
-              <div className="relative h-64 bg-gradient-to-br from-zinc-900 via-zinc-800 to-black flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <project.icon
-                  size={80}
-                  className="text-yellow-400/20 group-hover:text-yellow-400/40 group-hover:scale-110 transition-all duration-500"
-                />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-2xl font-bold mb-1">{project.title}</h3>
-                  <p className="text-sm text-yellow-400 font-medium">{project.subtitle}</p>
-                </div>
-              </div>
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${accentBlob(project.accent)}`}
+              />
+              <span className="font-mono">{h}</span>
+            </li>
+          ))}
+        </ul>
 
-              <div className="p-6">
-                <p className="text-gray-300 mb-6 leading-relaxed">{project.description}</p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="px-3 py-1 bg-zinc-900 text-yellow-400 text-xs font-medium rounded-full border border-zinc-800"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="space-y-2 mb-6">
-                  {project.metrics.map((metric, metricIndex) => (
-                    <div
-                      key={metricIndex}
-                      className="flex items-center text-sm text-gray-400"
-                    >
-                      <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-3"></div>
-                      <span>{metric}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button className="flex items-center space-x-2 text-yellow-400 font-semibold hover:text-white transition-colors duration-300 group/btn">
-                  <span>View Case Study</span>
-                  <ExternalLink
-                    size={16}
-                    className="group-hover/btn:translate-x-1 transition-transform duration-300"
-                  />
-                </button>
-              </div>
-            </div>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tags.map((t) => (
+            <span
+              key={t}
+              className="font-mono text-[11px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-300"
+            >
+              {t}
+            </span>
           ))}
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-yellow-400/10 to-transparent border border-yellow-400/30 rounded-2xl p-8 md:p-12">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="mb-6 md:mb-0">
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">
-                Certified Product Manager
-              </h3>
-              <p className="text-gray-400">
-                Product Experimentation & Product Discovery Micro-Certifications
-              </p>
-            </div>
-            <div className="flex flex-col space-y-2">
-              <div className="px-6 py-3 bg-yellow-400/20 border border-yellow-400 rounded-lg text-center">
-                <span className="font-bold text-yellow-400">Product Experimentation</span>
-              </div>
-              <div className="px-6 py-3 bg-yellow-400/20 border border-yellow-400 rounded-lg text-center">
-                <span className="font-bold text-yellow-400">Product Discovery</span>
-              </div>
-            </div>
+        <div className="flex items-center gap-3">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`inline-flex items-center gap-1.5 text-sm font-semibold ${accentText(
+                project.accent
+              )} hover:opacity-80 transition-opacity`}
+            >
+              Live <ArrowUpRight size={14} />
+            </a>
+          )}
+          {project.codeUrl && (
+            <a
+              href={project.codeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-white transition-colors"
+            >
+              <Github size={14} /> Code
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Portfolio = () => {
+  return (
+    <section
+      id="portfolio"
+      className="relative py-32 px-6 lg:px-12 border-y border-white/5 overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto w-full">
+        <div className="text-center mb-16">
+          <div className="reveal font-mono text-xs tracking-widest uppercase text-neon-lime mb-4">
+            // 04 — selected work
           </div>
+          <h2 className="reveal reveal-delay-1 font-display text-5xl md:text-7xl font-bold mb-5">
+            Things I've <span className="text-gradient-lv">built</span>.
+          </h2>
+          <p className="reveal reveal-delay-2 text-zinc-400 max-w-2xl mx-auto text-lg">
+            Production SaaS, side-project obsessions and internal tools. Hover any card.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {PROJECTS.map((p, i) => (
+            <TiltCard key={p.title} project={p} index={i} />
+          ))}
         </div>
       </div>
     </section>
