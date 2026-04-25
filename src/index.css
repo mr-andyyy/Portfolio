@@ -10,19 +10,95 @@
   box-sizing: border-box;
 }
 
+/* ─── Theme variables ─── */
+:root {
+  /* Surface */
+  --bg-primary: #050507;
+  --bg-secondary: #0a0a0f;
+  --bg-card: #0a0a0f;
+  --bg-elevated: #11121a;
+  --bg-input: rgba(0, 0, 0, 0.4);
+
+  /* Text */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+
+  /* Borders */
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  /* Chatbot */
+  --chat-bg: rgba(10, 10, 15, 0.95);
+  --chat-header: rgba(17, 18, 26, 0.98);
+  --chat-border: rgba(255, 255, 255, 0.1);
+  --chat-text: #ffffff;
+  --chat-muted: #71717a;
+  --chat-hover: rgba(255, 255, 255, 0.05);
+  --chat-bot-bg: rgba(255, 255, 255, 0.06);
+  --chat-input-bg: rgba(0, 0, 0, 0.4);
+  --chat-chip-border: rgba(255, 255, 255, 0.1);
+  --chat-chip-bg: rgba(255, 255, 255, 0.03);
+  --chat-chip-text: #a1a1aa;
+
+  /* Scrollbar */
+  --scrollbar-track: #050507;
+
+  /* Selection */
+  --selection-bg: rgba(34, 211, 238, 0.3);
+}
+
+[data-theme='light'] {
+  /* Surface */
+  --bg-primary: #f8f9fc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f1f3f8;
+  --bg-input: rgba(0, 0, 0, 0.04);
+
+  /* Text */
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+
+  /* Borders */
+  --border-primary: rgba(0, 0, 0, 0.1);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+
+  /* Chatbot */
+  --chat-bg: rgba(255, 255, 255, 0.97);
+  --chat-header: rgba(248, 249, 252, 0.98);
+  --chat-border: rgba(0, 0, 0, 0.1);
+  --chat-text: #18181b;
+  --chat-muted: #a1a1aa;
+  --chat-hover: rgba(0, 0, 0, 0.05);
+  --chat-bot-bg: #f1f3f8;
+  --chat-input-bg: #f4f4f5;
+  --chat-chip-border: rgba(0, 0, 0, 0.1);
+  --chat-chip-bg: rgba(0, 0, 0, 0.03);
+  --chat-chip-text: #52525b;
+
+  /* Scrollbar */
+  --scrollbar-track: #f8f9fc;
+
+  /* Selection */
+  --selection-bg: rgba(168, 85, 247, 0.2);
+}
+
 html {
   scroll-behavior: smooth;
-  background: #050507;
+  background: var(--bg-primary);
 }
 
 body {
   font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #050507;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
   cursor: none;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @media (max-width: 768px) {
@@ -32,15 +108,15 @@ body {
 }
 
 ::selection {
-  background: rgba(34, 211, 238, 0.3);
-  color: #ffffff;
+  background: var(--selection-bg);
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #050507;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #22d3ee, #a855f7);
@@ -129,7 +205,7 @@ body {
   /* Gradient border card */
   .grad-border {
     position: relative;
-    background: #0a0a0f;
+    background: var(--bg-card);
     border-radius: 1rem;
   }
   .grad-border::before {
@@ -256,4 +332,230 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+/* ─── Light theme overrides ─── */
+[data-theme='light'] body {
+  cursor: auto;
+}
+
+[data-theme='light'] .bg-ink-950 {
+  background-color: var(--bg-primary);
+}
+
+[data-theme='light'] .text-white {
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .text-zinc-400 {
+  color: #52525b;
+}
+
+[data-theme='light'] .text-zinc-500 {
+  color: #71717a;
+}
+
+[data-theme='light'] .text-zinc-600 {
+  color: #a1a1aa;
+}
+
+[data-theme='light'] .text-zinc-300 {
+  color: #3f3f46;
+}
+
+[data-theme='light'] .text-zinc-700 {
+  color: #d4d4d8;
+}
+
+/* Card backgrounds */
+[data-theme='light'] .grad-border {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .grad-border::before {
+  opacity: 0.35;
+}
+
+[data-theme='light'] .grad-border:hover::before {
+  opacity: 0.7;
+}
+
+/* Nav bar */
+[data-theme='light'] .bg-ink-950\/70 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme='light'] .backdrop-blur-xl {
+  backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Borders */
+[data-theme='light'] .border-white\/5,
+[data-theme='light'] .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .border-white\/15 {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='light'] .border-white\/25 {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Background overlays */
+[data-theme='light'] .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='light'] .bg-white\/\[0\.02\] {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+[data-theme='light'] .bg-white\/\[0\.04\] {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='light'] .bg-white\/10,
+[data-theme='light'] .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Blobs - softer in light mode */
+[data-theme='light'] .bg-neon-cyan\/10 {
+  background-color: rgba(34, 211, 238, 0.06);
+}
+
+[data-theme='light'] .bg-neon-violet\/10 {
+  background-color: rgba(168, 85, 247, 0.06);
+}
+
+[data-theme='light'] .bg-neon-lime\/10 {
+  background-color: rgba(163, 230, 53, 0.06);
+}
+
+/* Noise overlay */
+[data-theme='light'] .noise::after {
+  opacity: 0.02;
+}
+
+/* Glitch text */
+[data-theme='light'] .glitch {
+  color: var(--text-primary);
+}
+
+[data-theme='light'] .glitch::before {
+  text-shadow: -1px 0 #0891b2;
+}
+
+[data-theme='light'] .glitch::after {
+  text-shadow: -1px 0 #7c3aed;
+}
+
+/* Dev grid */
+[data-theme='light'] .bg-dev-grid {
+  background-image:
+    linear-gradient(rgba(168, 85, 247, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px);
+}
+
+[data-theme='light'] .bg-radial-fade {
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.08), transparent 60%);
+}
+
+/* Form inputs */
+[data-theme='light'] .bg-black\/40 {
+  background-color: #f4f4f5;
+}
+
+[data-theme='light'] input::placeholder,
+[data-theme='light'] textarea::placeholder {
+  color: #a1a1aa;
+}
+
+/* Neon text — slightly darker for light bg contrast */
+[data-theme='light'] .text-neon-cyan {
+  color: #0891b2;
+}
+
+[data-theme='light'] .text-neon-violet {
+  color: #7c3aed;
+}
+
+[data-theme='light'] .text-neon-lime {
+  color: #65a30d;
+}
+
+/* Gradient text */
+[data-theme='light'] .text-gradient {
+  background: linear-gradient(120deg, #0891b2 0%, #7c3aed 50%, #65a30d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme='light'] .text-gradient-cv {
+  background: linear-gradient(120deg, #0891b2 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[data-theme='light'] .text-gradient-lv {
+  background: linear-gradient(120deg, #65a30d 0%, #0891b2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Terminal window in hero */
+[data-theme='light'] .tilt {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+/* Shadows */
+[data-theme='light'] .shadow-glow {
+  box-shadow: 0 0 40px -10px rgba(8, 145, 178, 0.35);
+}
+
+[data-theme='light'] .shadow-glow-violet {
+  box-shadow: 0 0 60px -10px rgba(124, 58, 237, 0.35);
+}
+
+/* Ring glows */
+[data-theme='light'] .ring-glow-cyan {
+  box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.3), 0 0 24px -6px rgba(8, 145, 178, 0.4);
+}
+
+[data-theme='light'] .ring-glow-violet {
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.3), 0 0 28px -6px rgba(124, 58, 237, 0.4);
+}
+
+[data-theme='light'] .ring-glow-lime {
+  box-shadow: 0 0 0 1px rgba(101, 163, 13, 0.3), 0 0 24px -6px rgba(101, 163, 13, 0.4);
+}
+
+/* Custom cursor hidden in light mode */
+[data-theme='light'] .pointer-events-none.fixed.z-\[200\],
+[data-theme='light'] .pointer-events-none.fixed.z-\[199\] {
+  display: none;
+}
+
+/* Chatbot scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+[data-theme='light'] .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
 }

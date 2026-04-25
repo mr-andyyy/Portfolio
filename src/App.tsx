@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Navigation from './components/Navigation';
 import ScrollProgress from './components/ScrollProgress';
 import Cursor from './components/Cursor';
+import Chatbot from './components/Chatbot';
 import { useReveal } from './hooks/useReveal';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       <Portfolio />
       <Achievements />
       <Contact />
+      <Chatbot />
     </div>
   );
 }

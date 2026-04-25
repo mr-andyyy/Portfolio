@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const NAV = [
   { name: 'About', href: '#about', n: '01' },
@@ -105,6 +106,8 @@ const Navigation = () => {
               );
             })}
           </div>
+
+          <ThemeToggle />
 
           <a
             href="#contact"

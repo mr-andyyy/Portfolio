@@ -191,10 +191,11 @@ const Experience = () => {
                       </span>
                     </span>
                   </div>
-                  <p className="text-sm text-zinc-300">
-                    CGPA <span className="font-mono text-neon-lime">8.0</span> · Member of the
-                    Competitive Programming Team at SECE · NSS Event Management lead.
-                  </p>
+                  <ul className="text-sm text-zinc-300 space-y-1 mt-1">
+                    <li>CGPA <span className="font-mono text-neon-lime">8.0</span></li>
+                    <li>Member of the Competitive Programming Team at SECE</li>
+                    <li>NSS Event Management Lead</li>
+                  </ul>
                 </div>
               </div>
               <div className="hidden md:block" />

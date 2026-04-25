@@ -166,7 +166,7 @@ const TiltCard = ({ project, index }: { project: Project; index: number }) => {
       className={`reveal reveal-delay-${(index % 4) + 1} tilt grad-border relative overflow-hidden group`}
       style={{
         background:
-          'radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.06), transparent 40%), #0a0a0f',
+          'radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.06), transparent 40%), var(--bg-card)',
       }}
     >
       <div
