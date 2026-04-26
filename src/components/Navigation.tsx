@@ -50,8 +50,9 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'py-3' : 'py-6'
+        scrolled ? 'py-3' : 'py-3 sm:py-6'
       }`}
+      style={{ paddingTop: `max(env(safe-area-inset-top, 0px), 0.75rem)` }}
     >
       <div
         className={`max-w-7xl mx-auto px-6 lg:px-12 transition-[background-color,border-color,margin] duration-500 ${
@@ -62,7 +63,7 @@ const Navigation = () => {
               : ''
         }`}
       >
-        <div className={`flex items-center justify-between ${scrolled ? 'py-2' : ''}`}>
+        <div className={`flex items-center justify-between ${scrolled ? 'py-2' : 'py-1'}`}>
           <a
             href="#hero"
             data-cursor="hover"
