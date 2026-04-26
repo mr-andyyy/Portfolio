@@ -54,7 +54,7 @@ const Contact = () => {
         ? 'text-neon-violet'
         : a === 'lime'
           ? 'text-neon-lime'
-          : 'text-amber-300';
+          : 'text-neon-amber';
   const accentBg = (a: string) =>
     a === 'cyan'
       ? 'bg-neon-cyan/10'
@@ -62,14 +62,14 @@ const Contact = () => {
         ? 'bg-neon-violet/10'
         : a === 'lime'
           ? 'bg-neon-lime/10'
-          : 'bg-amber-400/10';
+          : 'bg-neon-amber/10';
 
   return (
     <section id="contact" className="relative py-32 px-6 lg:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-20">
           <div className="reveal font-mono text-xs tracking-widest uppercase text-neon-cyan mb-4">
-            // 06 — let's connect
+            // 07 — let's connect
           </div>
           <h2 className="reveal reveal-delay-1 font-display text-5xl md:text-7xl font-bold mb-5">
             Got an idea? <span className="text-gradient">Let's build it.</span>
@@ -280,7 +280,7 @@ const Stat = ({
             ? 'text-neon-violet'
             : accent === 'lime'
               ? 'text-neon-lime'
-              : 'text-amber-300'
+              : 'text-neon-amber'
         }`}
     >
       {value}

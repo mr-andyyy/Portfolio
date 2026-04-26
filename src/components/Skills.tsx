@@ -87,7 +87,7 @@ const accentText = (a: string) =>
     ? 'text-neon-violet'
     : a === 'lime'
     ? 'text-neon-lime'
-    : 'text-amber-300';
+    : 'text-neon-amber';
 
 const accentBg = (a: string) =>
   a === 'cyan'
@@ -96,7 +96,7 @@ const accentBg = (a: string) =>
     ? 'bg-neon-violet/10'
     : a === 'lime'
     ? 'bg-neon-lime/10'
-    : 'bg-amber-400/10';
+    : 'bg-neon-amber/10';
 
 const accentBlob = (a: string) =>
   a === 'cyan'
@@ -105,7 +105,7 @@ const accentBlob = (a: string) =>
     ? 'bg-neon-violet'
     : a === 'lime'
     ? 'bg-neon-lime'
-    : 'bg-amber-400';
+    : 'bg-neon-amber';
 
 const Skills = () => {
   return (

@@ -66,7 +66,7 @@ const accentText = (a: Platform['accent']) =>
     ? 'text-neon-violet'
     : a === 'lime'
     ? 'text-neon-lime'
-    : 'text-amber-300';
+    : 'text-neon-amber';
 
 const accentBorder = (a: Platform['accent']) =>
   a === 'cyan'
@@ -75,7 +75,7 @@ const accentBorder = (a: Platform['accent']) =>
     ? 'border-neon-violet/30'
     : a === 'lime'
     ? 'border-neon-lime/30'
-    : 'border-amber-400/30';
+    : 'border-neon-amber/30';
 
 const accentBlob = (a: Platform['accent']) =>
   a === 'cyan'
@@ -84,7 +84,7 @@ const accentBlob = (a: Platform['accent']) =>
     ? 'bg-neon-violet'
     : a === 'lime'
     ? 'bg-neon-lime'
-    : 'bg-amber-400';
+    : 'bg-neon-amber';
 
 const RIBBON = [
   'CodeChef 6★',
@@ -102,7 +102,7 @@ const Achievements = () => {
     <section id="achievements" className="relative py-32 px-6 lg:px-12 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <div className="reveal font-mono text-xs tracking-widest uppercase text-amber-300 mb-4">
+          <div className="reveal font-mono text-xs tracking-widest uppercase text-neon-amber mb-4">
             // 05 — receipts
           </div>
           <h2 className="reveal reveal-delay-1 font-display text-5xl md:text-7xl font-bold mb-5">

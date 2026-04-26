@@ -1,5 +1,7 @@
 import { ArrowDown, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import ParticleField from './ParticleField';
+import StatusPill from './StatusPill';
 
 const ROLES = [
   'Software Developer',
@@ -47,6 +49,10 @@ const Hero = () => {
       {/* grid backdrop */}
       <div className="absolute inset-0 bg-dev-grid opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
       <div className="absolute inset-0 bg-radial-fade" />
+      {/* particle network — desktop only, sits above grid below content */}
+      <div className="absolute inset-0 hidden lg:block [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]">
+        <ParticleField />
+      </div>
 
       {/* floating orbs */}
       <div className="absolute top-24 left-12 hidden lg:block animate-float">
@@ -68,14 +74,15 @@ const Hero = () => {
       <div className="relative max-w-7xl mx-auto w-full grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center">
         {/* LEFT: name + role */}
         <div>
-          <div className="overflow-hidden mb-5">
-            <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-neon-cyan border border-neon-cyan/30 bg-neon-cyan/5 px-3 py-1.5 rounded-full animate-slide-up">
+          <div className="flex flex-wrap items-center gap-2 mb-5 animate-slide-up">
+            <div className="inline-flex items-center gap-2 font-mono text-xs tracking-widest uppercase text-neon-cyan border border-neon-cyan/30 bg-neon-cyan/5 px-3 py-1.5 rounded-full">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan" />
               </span>
               available for opportunities
             </div>
+            <StatusPill />
           </div>
 
           <div className="overflow-hidden">
@@ -182,45 +189,45 @@ const Hero = () => {
               <Line indent>
                 <span className="text-neon-violet">role</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-amber-300">'Software Developer'</span>
+                <span className="text-neon-amber">'Software Developer'</span>
                 <span className="text-zinc-500">,</span>
               </Line>
               <Line indent>
                 <span className="text-neon-violet">company</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-amber-300">'OptyStack'</span>
+                <span className="text-neon-amber">'OptyStack'</span>
                 <span className="text-zinc-500">,</span>
               </Line>
               <Line indent>
                 <span className="text-neon-violet">stack</span>
                 <span className="text-zinc-500">: [</span>
-                <span className="text-amber-300">'Next.js'</span>
+                <span className="text-neon-amber">'Next.js'</span>
                 <span className="text-zinc-500">, </span>
-                <span className="text-amber-300">'Prisma'</span>
+                <span className="text-neon-amber">'Prisma'</span>
                 <span className="text-zinc-500">, </span>
-                <span className="text-amber-300">'AWS'</span>
+                <span className="text-neon-amber">'AWS'</span>
                 <span className="text-zinc-500">, </span>
-                <span className="text-amber-300">'PostgreSQL'</span>
+                <span className="text-neon-amber">'PostgreSQL'</span>
                 <span className="text-zinc-500">],</span>
               </Line>
               <Line indent>
                 <span className="text-neon-violet">cf</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-cyan-300">1620</span>
+                <span className="text-neon-cyan">1620</span>
                 <span className="text-zinc-500">, </span>
                 <span className="text-neon-violet">cc</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-cyan-300">2203</span>
+                <span className="text-neon-cyan">2203</span>
                 <span className="text-zinc-500">, </span>
                 <span className="text-neon-violet">lc</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-cyan-300">2123</span>
+                <span className="text-neon-cyan">2123</span>
                 <span className="text-zinc-500">,</span>
               </Line>
               <Line indent>
                 <span className="text-neon-violet">superpower</span>
                 <span className="text-zinc-500">: </span>
-                <span className="text-amber-300">'shipping fast, debugging faster'</span>
+                <span className="text-neon-amber">'shipping fast, debugging faster'</span>
                 <span className="text-zinc-500">,</span>
               </Line>
               <Line>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Code2, Cpu, Rocket, Trophy } from 'lucide-react';
 
+
 type Stat = {
   value: number;
   suffix?: string;
@@ -11,7 +12,7 @@ type Stat = {
 const STATS: Stat[] = [
   { value: 2203, label: 'Max CodeChef Rating', accent: 'amber' },
   { value: 2123, label: 'Peak LeetCode Rating', accent: 'lime' },
-  { value: 20, suffix: '+', label: 'Enterprise Apps Integrated', accent: 'violet' },
+  { value: 50, suffix: '+', label: 'Enterprise Apps Integrated', accent: 'violet' },
   { value: 8, label: 'CGPA · NIT Jamshedpur', accent: 'cyan' },
 ];
 
@@ -19,7 +20,7 @@ const ACCENT: Record<Stat['accent'], string> = {
   cyan: 'text-neon-cyan',
   violet: 'text-neon-violet',
   lime: 'text-neon-lime',
-  amber: 'text-amber-300',
+  amber: 'text-neon-amber',
 };
 
 const Counter = ({ value, suffix }: { value: number; suffix?: string }) => {
@@ -157,23 +158,23 @@ const About = () => {
               >
                 <div
                   className={`absolute -bottom-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-20 group-hover:opacity-50 transition-opacity ${h.accent === 'cyan'
-                      ? 'bg-neon-cyan'
-                      : h.accent === 'violet'
-                        ? 'bg-neon-violet'
-                        : h.accent === 'lime'
-                          ? 'bg-neon-lime'
-                          : 'bg-amber-400'
+                    ? 'bg-neon-cyan'
+                    : h.accent === 'violet'
+                      ? 'bg-neon-violet'
+                      : h.accent === 'lime'
+                        ? 'bg-neon-lime'
+                        : 'bg-neon-amber'
                     }`}
                 />
                 <div className="relative">
                   <div
                     className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${h.accent === 'cyan'
-                        ? 'bg-neon-cyan/10 text-neon-cyan'
-                        : h.accent === 'violet'
-                          ? 'bg-neon-violet/10 text-neon-violet'
-                          : h.accent === 'lime'
-                            ? 'bg-neon-lime/10 text-neon-lime'
-                            : 'bg-amber-400/10 text-amber-300'
+                      ? 'bg-neon-cyan/10 text-neon-cyan'
+                      : h.accent === 'violet'
+                        ? 'bg-neon-violet/10 text-neon-violet'
+                        : h.accent === 'lime'
+                          ? 'bg-neon-lime/10 text-neon-lime'
+                          : 'bg-neon-amber/10 text-neon-amber'
                       }`}
                   >
                     <h.icon size={22} />

@@ -19,6 +19,7 @@ type Project = {
   highlights: string[];
   liveUrl?: string;
   codeUrl?: string;
+
   accent: 'cyan' | 'violet' | 'lime' | 'amber' | 'rose';
   badge?: string;
 };
@@ -38,6 +39,7 @@ const PROJECTS: Project[] = [
     ],
     accent: 'cyan',
     badge: 'live · in production',
+
   },
   {
     title: 'Milk & Muse PoS',
@@ -53,6 +55,7 @@ const PROJECTS: Project[] = [
     ],
     accent: 'rose',
     badge: 'live · multi-platform',
+
   },
   {
     title: 'CryptoNewz',
@@ -111,7 +114,7 @@ const accentText = (a: Project['accent']) =>
         ? 'text-neon-lime'
         : a === 'rose'
           ? 'text-rose-400'
-          : 'text-amber-300';
+          : 'text-neon-amber';
 
 const accentBlob = (a: Project['accent']) =>
   a === 'cyan'
@@ -122,7 +125,7 @@ const accentBlob = (a: Project['accent']) =>
         ? 'bg-neon-lime'
         : a === 'rose'
           ? 'bg-rose-400'
-          : 'bg-amber-400';
+          : 'bg-neon-amber';
 
 const accentBorder = (a: Project['accent']) =>
   a === 'cyan'
@@ -133,7 +136,7 @@ const accentBorder = (a: Project['accent']) =>
         ? 'border-neon-lime/30'
         : a === 'rose'
           ? 'border-rose-400/30'
-          : 'border-amber-400/30';
+          : 'border-neon-amber/30';
 
 const TiltCard = ({ project, index }: { project: Project; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -226,7 +229,8 @@ const TiltCard = ({ project, index }: { project: Project; index: number }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 flex-wrap">
+
           {project.liveUrl && (
             <a
               href={project.liveUrl}

@@ -17,17 +17,17 @@ export default {
           600: '#262833',
         },
         neon: {
-          cyan: '#22d3ee',
-          violet: '#a855f7',
-          lime: '#a3e635',
-          pink: '#ec4899',
-          amber: '#fbbf24',
+          cyan: 'rgb(var(--neon-cyan-rgb) / <alpha-value>)',
+          violet: 'rgb(var(--neon-violet-rgb) / <alpha-value>)',
+          lime: 'rgb(var(--neon-lime-rgb) / <alpha-value>)',
+          amber: 'rgb(var(--neon-amber-rgb) / <alpha-value>)',
+          pink: 'rgb(var(--neon-violet-rgb) / <alpha-value>)',
         },
       },
       boxShadow: {
-        glow: '0 0 40px -10px rgba(34, 211, 238, 0.5)',
-        'glow-violet': '0 0 60px -10px rgba(168, 85, 247, 0.55)',
-        'glow-lime': '0 0 60px -10px rgba(163, 230, 53, 0.45)',
+        glow: '0 0 40px -10px rgb(var(--neon-cyan-rgb) / 0.5)',
+        'glow-violet': '0 0 60px -10px rgb(var(--neon-violet-rgb) / 0.55)',
+        'glow-lime': '0 0 60px -10px rgb(var(--neon-lime-rgb) / 0.45)',
       },
       backgroundImage: {
         'grid-fade':

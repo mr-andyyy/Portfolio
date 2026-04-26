@@ -7,8 +7,9 @@ const NAV = [
   { name: 'Skills', href: '#skills', n: '02' },
   { name: 'Experience', href: '#experience', n: '03' },
   { name: 'Work', href: '#portfolio', n: '04' },
-  { name: 'Achievements', href: '#achievements', n: '05' },
-  { name: 'Contact', href: '#contact', n: '06' },
+  { name: 'Wins', href: '#achievements', n: '05' },
+  { name: 'Praise', href: '#testimonials', n: '06' },
+  { name: 'Contact', href: '#contact', n: '07' },
 ];
 
 const Navigation = () => {
@@ -108,6 +109,20 @@ const Navigation = () => {
               );
             })}
           </div>
+
+          <button
+            onClick={() => {
+              const ev = new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true });
+              window.dispatchEvent(ev);
+            }}
+            data-cursor="hover"
+            aria-label="Open command palette"
+            className="hidden md:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-full font-mono text-[11px] transition-colors hover:border-neon-cyan/50"
+            style={{ border: '1px solid var(--border-primary)', color: 'var(--text-secondary)' }}
+          >
+            <span>⌘</span>
+            <span>K</span>
+          </button>
 
           <ThemeToggle />
 

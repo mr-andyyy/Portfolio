@@ -5,16 +5,25 @@ import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Portfolio from './components/Portfolio';
 import Achievements from './components/Achievements';
+import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Navigation from './components/Navigation';
 import ScrollProgress from './components/ScrollProgress';
 import Cursor from './components/Cursor';
 import Chatbot from './components/Chatbot';
+import Loader from './components/Loader';
+import CommandPalette from './components/CommandPalette';
+import Konami from './components/Konami';
+
 import { useReveal } from './hooks/useReveal';
+import { useLenis } from './hooks/useLenis';
+import { useSoundInit } from './hooks/useSound';
 
 function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   useReveal();
+  useLenis();
+  useSoundInit();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +45,7 @@ function App() {
         <div className="absolute bottom-0 left-1/3 w-[36rem] h-[36rem] rounded-full bg-neon-lime/10 blur-[120px] animate-blob" />
       </div>
 
+      <Loader />
       <Cursor />
       <ScrollProgress progress={scrollProgress} />
       <Navigation />
@@ -45,8 +55,11 @@ function App() {
       <Experience />
       <Portfolio />
       <Achievements />
+      <Testimonials />
       <Contact />
       <Chatbot />
+      <CommandPalette />
+      <Konami />
     </div>
   );
 }
