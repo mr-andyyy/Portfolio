@@ -3,7 +3,6 @@ import {
   ArrowUpRight,
   Calculator,
   Github,
-  LayoutDashboard,
   LineChart,
   Newspaper,
   PenSquare,
@@ -29,7 +28,7 @@ const PROJECTS: Project[] = [
     title: 'SaaS Management Dashboard',
     subtitle: 'OptyStack · Production',
     description:
-      'Multi-tenant access-management platform with 20+ enterprise app integrations, custom RBAC, alert workflows and AWS-native backend services.',
+      'Multi-tenant access-management platform with 50+ enterprise app integrations, custom RBAC, alert workflows and AWS-native backend services.',
     icon: Server,
     tags: ['Next.js', 'Prisma', 'PostgreSQL', 'AWS', 'CI/CD'],
     highlights: [
@@ -107,34 +106,34 @@ const accentText = (a: Project['accent']) =>
   a === 'cyan'
     ? 'text-neon-cyan'
     : a === 'violet'
-    ? 'text-neon-violet'
-    : a === 'lime'
-    ? 'text-neon-lime'
-    : a === 'rose'
-    ? 'text-rose-400'
-    : 'text-amber-300';
+      ? 'text-neon-violet'
+      : a === 'lime'
+        ? 'text-neon-lime'
+        : a === 'rose'
+          ? 'text-rose-400'
+          : 'text-amber-300';
 
 const accentBlob = (a: Project['accent']) =>
   a === 'cyan'
     ? 'bg-neon-cyan'
     : a === 'violet'
-    ? 'bg-neon-violet'
-    : a === 'lime'
-    ? 'bg-neon-lime'
-    : a === 'rose'
-    ? 'bg-rose-400'
-    : 'bg-amber-400';
+      ? 'bg-neon-violet'
+      : a === 'lime'
+        ? 'bg-neon-lime'
+        : a === 'rose'
+          ? 'bg-rose-400'
+          : 'bg-amber-400';
 
 const accentBorder = (a: Project['accent']) =>
   a === 'cyan'
     ? 'border-neon-cyan/30'
     : a === 'violet'
-    ? 'border-neon-violet/30'
-    : a === 'lime'
-    ? 'border-neon-lime/30'
-    : a === 'rose'
-    ? 'border-rose-400/30'
-    : 'border-amber-400/30';
+      ? 'border-neon-violet/30'
+      : a === 'lime'
+        ? 'border-neon-lime/30'
+        : a === 'rose'
+          ? 'border-rose-400/30'
+          : 'border-amber-400/30';
 
 const TiltCard = ({ project, index }: { project: Project; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);

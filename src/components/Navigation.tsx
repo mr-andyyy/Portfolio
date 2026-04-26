@@ -53,10 +53,12 @@ const Navigation = () => {
       }`}
     >
       <div
-        className={`max-w-7xl mx-auto px-6 lg:px-12 transition-all duration-500 ${
-          scrolled
-            ? 'bg-ink-950/70 backdrop-blur-xl border border-white/10 rounded-full mt-2'
-            : ''
+        className={`max-w-7xl mx-auto px-6 lg:px-12 transition-[background-color,border-color,margin] duration-500 ${
+          open
+            ? 'nav-surface-solid rounded-2xl mt-2'
+            : scrolled
+              ? 'nav-surface rounded-full mt-2'
+              : ''
         }`}
       >
         <div className={`flex items-center justify-between ${scrolled ? 'py-2' : ''}`}>
@@ -142,10 +144,10 @@ const Navigation = () => {
                   e.preventDefault();
                   go(link.href);
                 }}
-                className="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-white/5 transition-colors"
+                className="flex items-center gap-3 px-3 py-3 rounded-lg surface-hover transition-colors"
               >
-                <span className="font-mono text-xs text-zinc-600">{link.n}.</span>
-                <span className="font-medium">{link.name}</span>
+                <span className="font-mono text-xs text-theme-muted">{link.n}.</span>
+                <span className="font-medium text-theme">{link.name}</span>
               </a>
             ))}
           </div>

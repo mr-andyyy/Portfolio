@@ -17,7 +17,7 @@ Anand Kumar is a Software Developer currently working at OptyStack Tech Pvt Ltd 
 ═══ WORK EXPERIENCE ═══
 1. Software Developer at OptyStack Tech Pvt Ltd (Aug 2025 — Present, Gurugram, Haryana)
    - Building a multi-tenant SaaS Management Dashboard on Next.js App Router with Prisma + PostgreSQL
-   - Integrated 20+ enterprise apps (Google Workspace, Okta, Dropbox, etc.) for unified user/access management with alerts and reporting
+   - Integrated 50+ enterprise apps (Google Workspace, Okta, Dropbox, etc.) for unified user/access management with alerts and reporting
    - Architected AWS backend services across EC2, Lambda, EventBridge, and Parameter Store
    - Owned a custom GitHub Actions CI/CD pipeline for repeatable, automated deploys
 
@@ -27,7 +27,7 @@ Anand Kumar is a Software Developer currently working at OptyStack Tech Pvt Ltd 
    - Crafted dynamic, interactive UI components with smooth data fetching and state
 
 ═══ PROJECTS ═══
-1. SaaS Management Dashboard (OptyStack · Production) — Multi-tenant access-management platform with 20+ enterprise app integrations, custom RBAC, alert workflows, AWS-native backend. Tech: Next.js, Prisma, PostgreSQL, AWS, GitHub Actions. LIVE in production.
+1. SaaS Management Dashboard (OptyStack · Production) — Multi-tenant access-management platform with 50+ enterprise app integrations, custom RBAC, alert workflows, AWS-native backend. Tech: Next.js, Prisma, PostgreSQL, AWS, GitHub Actions. LIVE in production.
 
 2. Milk & Muse PoS — Multi-platform Point of Sale ecosystem:
    - Android App: Flutter-based for in-store ops — orders, thermal printing (Bluetooth/USB/Network via ESC/POS), coupons, offline support. State mgmt with Riverpod. Local SQLite DB synced via PowerSync.
@@ -197,11 +197,10 @@ const Chatbot = () => {
     <>
       {/* Chat window */}
       <div
-        className={`fixed bottom-24 right-6 z-[150] w-[380px] max-w-[calc(100vw-2rem)] transition-all duration-300 ${
-          isOpen
-            ? 'opacity-100 translate-y-0 pointer-events-auto'
-            : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
+        className={`fixed bottom-24 right-6 z-[150] w-[380px] max-w-[calc(100vw-2rem)] transition-all duration-300 ${isOpen
+          ? 'opacity-100 translate-y-0 pointer-events-auto'
+          : 'opacity-0 translate-y-4 pointer-events-none'
+          }`}
       >
         <div className="rounded-2xl border border-[var(--chat-border)] bg-[var(--chat-bg)] backdrop-blur-xl shadow-2xl overflow-hidden flex flex-col" style={{ height: '520px' }}>
           {/* Header */}
@@ -235,11 +234,10 @@ const Chatbot = () => {
                 className={`flex gap-2.5 ${msg.sender === 'user' ? 'flex-row-reverse' : ''}`}
               >
                 <div
-                  className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center ${
-                    msg.sender === 'bot'
-                      ? 'bg-gradient-to-br from-neon-cyan to-neon-violet'
-                      : 'bg-gradient-to-br from-neon-lime to-neon-cyan'
-                  }`}
+                  className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center ${msg.sender === 'bot'
+                    ? 'bg-gradient-to-br from-neon-cyan to-neon-violet'
+                    : 'bg-gradient-to-br from-neon-lime to-neon-cyan'
+                    }`}
                 >
                   {msg.sender === 'bot' ? (
                     <Bot size={14} className="text-black" />
@@ -248,11 +246,10 @@ const Chatbot = () => {
                   )}
                 </div>
                 <div
-                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-[13px] leading-relaxed ${
-                    msg.sender === 'bot'
-                      ? 'bg-[var(--chat-bot-bg)] text-[var(--chat-text)] rounded-tl-md'
-                      : 'bg-gradient-to-r from-neon-cyan to-neon-violet text-black font-medium rounded-tr-md'
-                  }`}
+                  className={`max-w-[80%] px-4 py-3 rounded-2xl text-[13px] leading-relaxed ${msg.sender === 'bot'
+                    ? 'bg-[var(--chat-bot-bg)] text-[var(--chat-text)] rounded-tl-md'
+                    : 'bg-gradient-to-r from-neon-cyan to-neon-violet text-black font-medium rounded-tr-md'
+                    }`}
                   dangerouslySetInnerHTML={{
                     __html: msg.text
                       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -335,11 +332,10 @@ const Chatbot = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         data-cursor="hover"
-        className={`fixed bottom-6 right-6 z-[150] w-14 h-14 rounded-full flex items-center justify-center shadow-glow transition-all duration-300 ${
-          isOpen
-            ? 'bg-[var(--chat-header)] border border-[var(--chat-border)] rotate-0'
-            : 'bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-lime bg-[length:200%_200%] animate-gradient-x hover:shadow-glow-violet'
-        }`}
+        className={`fixed bottom-6 right-6 z-[150] w-14 h-14 rounded-full flex items-center justify-center shadow-glow transition-all duration-300 ${isOpen
+          ? 'bg-[var(--chat-header)] border border-[var(--chat-border)] rotate-0'
+          : 'bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-lime bg-[length:200%_200%] animate-gradient-x hover:shadow-glow-violet'
+          }`}
         aria-label="Chat with Anand's AI assistant"
       >
         {isOpen ? (

@@ -286,6 +286,29 @@ body {
   .interactive {
     transition: color 0.3s ease, transform 0.3s ease;
   }
+
+  /* Theme-aware surfaces */
+  .nav-surface {
+    background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+    border: 1px solid var(--border-primary);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+  .nav-surface-solid {
+    background: color-mix(in srgb, var(--bg-secondary) 95%, transparent);
+    border: 1px solid var(--border-primary);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+  .surface-hover:hover {
+    background: color-mix(in srgb, var(--text-primary) 6%, transparent);
+  }
+  .text-theme {
+    color: var(--text-primary);
+  }
+  .text-theme-muted {
+    color: var(--text-muted);
+  }
 }
 
 /* keyframes used by utilities */

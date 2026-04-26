@@ -42,7 +42,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6 pt-28 pb-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-6 pt-28 pb-24 lg:pb-16 overflow-hidden"
     >
       {/* grid backdrop */}
       <div className="absolute inset-0 bg-dev-grid opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
@@ -239,11 +239,11 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* scroll cue */}
+      {/* scroll cue — desktop only (collides with terminal on mobile) */}
       <div
         onClick={() => scrollTo('#about')}
         data-cursor="hover"
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+        className="hidden lg:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-2 cursor-pointer group"
       >
         <span className="font-mono text-[10px] tracking-widest text-zinc-500 group-hover:text-neon-cyan transition-colors">
           SCROLL

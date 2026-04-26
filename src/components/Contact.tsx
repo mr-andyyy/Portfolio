@@ -51,18 +51,18 @@ const Contact = () => {
     a === 'cyan'
       ? 'text-neon-cyan'
       : a === 'violet'
-      ? 'text-neon-violet'
-      : a === 'lime'
-      ? 'text-neon-lime'
-      : 'text-amber-300';
+        ? 'text-neon-violet'
+        : a === 'lime'
+          ? 'text-neon-lime'
+          : 'text-amber-300';
   const accentBg = (a: string) =>
     a === 'cyan'
       ? 'bg-neon-cyan/10'
       : a === 'violet'
-      ? 'bg-neon-violet/10'
-      : a === 'lime'
-      ? 'bg-neon-lime/10'
-      : 'bg-amber-400/10';
+        ? 'bg-neon-violet/10'
+        : a === 'lime'
+          ? 'bg-neon-lime/10'
+          : 'bg-amber-400/10';
 
   return (
     <section id="contact" className="relative py-32 px-6 lg:px-12 overflow-hidden">
@@ -121,7 +121,7 @@ const Contact = () => {
               </h3>
               <div className="grid grid-cols-3 gap-4">
                 <Stat value="2+" label="Yrs Building" accent="cyan" />
-                <Stat value="20+" label="Apps Integrated" accent="violet" />
+                <Stat value="50+" label="Apps Integrated" accent="violet" />
                 <Stat value="2203" label="Max Rating" accent="amber" />
               </div>
             </div>
@@ -274,15 +274,14 @@ const Stat = ({
 }) => (
   <div>
     <div
-      className={`font-display text-2xl font-bold ${
-        accent === 'cyan'
+      className={`font-display text-2xl font-bold ${accent === 'cyan'
           ? 'text-neon-cyan'
           : accent === 'violet'
-          ? 'text-neon-violet'
-          : accent === 'lime'
-          ? 'text-neon-lime'
-          : 'text-amber-300'
-      }`}
+            ? 'text-neon-violet'
+            : accent === 'lime'
+              ? 'text-neon-lime'
+              : 'text-amber-300'
+        }`}
     >
       {value}
     </div>

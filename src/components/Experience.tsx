@@ -20,7 +20,7 @@ const EXPERIENCES: Exp[] = [
     current: true,
     bullets: [
       'Building a multi-tenant SaaS Management Dashboard on Next.js App Router with Prisma + PostgreSQL.',
-      'Integrated 20+ enterprise apps for unified user/access management with alerts and reporting.',
+      'Integrated 50+ enterprise apps for unified user/access management with alerts and reporting.',
       'Architected AWS backend services across EC2, Lambda, EventBridge, and Parameter Store.',
       'Owned a custom GitHub Actions CI/CD pipeline for repeatable, automated deploys.',
     ],
@@ -50,8 +50,8 @@ const tagBg = (a: Exp['accent']) =>
   a === 'cyan'
     ? 'border-neon-cyan/30 text-neon-cyan bg-neon-cyan/5'
     : a === 'violet'
-    ? 'border-neon-violet/30 text-neon-violet bg-neon-violet/5'
-    : 'border-neon-lime/30 text-neon-lime bg-neon-lime/5';
+      ? 'border-neon-violet/30 text-neon-violet bg-neon-violet/5'
+      : 'border-neon-lime/30 text-neon-lime bg-neon-lime/5';
 
 const Experience = () => {
   return (
@@ -80,9 +80,8 @@ const Experience = () => {
               return (
                 <div
                   key={exp.company}
-                  className={`reveal reveal-delay-${(i % 4) + 1} relative md:grid md:grid-cols-2 md:gap-12 ${
-                    left ? '' : 'md:[&>div:first-child]:order-2'
-                  }`}
+                  className={`reveal reveal-delay-${(i % 4) + 1} relative md:grid md:grid-cols-2 md:gap-12 ${left ? '' : 'md:[&>div:first-child]:order-2'
+                    }`}
                 >
                   {/* node */}
                   <div
@@ -137,13 +136,12 @@ const Experience = () => {
                           >
                             <Sparkles
                               size={13}
-                              className={`mt-1 flex-shrink-0 ${
-                                exp.accent === 'cyan'
+                              className={`mt-1 flex-shrink-0 ${exp.accent === 'cyan'
                                   ? 'text-neon-cyan'
                                   : exp.accent === 'violet'
-                                  ? 'text-neon-violet'
-                                  : 'text-neon-lime'
-                              }`}
+                                    ? 'text-neon-violet'
+                                    : 'text-neon-lime'
+                                }`}
                             />
                             <span>{b}</span>
                           </li>

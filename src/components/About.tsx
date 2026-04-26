@@ -64,7 +64,7 @@ const About = () => {
     {
       icon: Rocket,
       title: 'Production SaaS',
-      desc: 'Multi-tenant Next.js dashboards with Prisma, PostgreSQL, and 20+ integrations.',
+      desc: 'Multi-tenant Next.js dashboards with Prisma, PostgreSQL, and 50+ integrations.',
       accent: 'cyan',
     },
     {
@@ -156,27 +156,25 @@ const About = () => {
                 data-cursor="hover"
               >
                 <div
-                  className={`absolute -bottom-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-20 group-hover:opacity-50 transition-opacity ${
-                    h.accent === 'cyan'
+                  className={`absolute -bottom-12 -right-12 w-40 h-40 rounded-full blur-3xl opacity-20 group-hover:opacity-50 transition-opacity ${h.accent === 'cyan'
                       ? 'bg-neon-cyan'
                       : h.accent === 'violet'
-                      ? 'bg-neon-violet'
-                      : h.accent === 'lime'
-                      ? 'bg-neon-lime'
-                      : 'bg-amber-400'
-                  }`}
+                        ? 'bg-neon-violet'
+                        : h.accent === 'lime'
+                          ? 'bg-neon-lime'
+                          : 'bg-amber-400'
+                    }`}
                 />
                 <div className="relative">
                   <div
-                    className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${
-                      h.accent === 'cyan'
+                    className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${h.accent === 'cyan'
                         ? 'bg-neon-cyan/10 text-neon-cyan'
                         : h.accent === 'violet'
-                        ? 'bg-neon-violet/10 text-neon-violet'
-                        : h.accent === 'lime'
-                        ? 'bg-neon-lime/10 text-neon-lime'
-                        : 'bg-amber-400/10 text-amber-300'
-                    }`}
+                          ? 'bg-neon-violet/10 text-neon-violet'
+                          : h.accent === 'lime'
+                            ? 'bg-neon-lime/10 text-neon-lime'
+                            : 'bg-amber-400/10 text-amber-300'
+                      }`}
                   >
                     <h.icon size={22} />
                   </div>
