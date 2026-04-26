@@ -234,6 +234,19 @@
   --neon-amber-rgb: 217 119 6;
   --grid-line: rgba(124, 58, 237, 0.08);
   --radial-fade: rgba(124, 58, 237, 0.1);
+
+  --chat-bg: rgba(255, 255, 255, 0.97);
+  --chat-header: rgba(248, 249, 252, 0.98);
+  --chat-border: rgba(0, 0, 0, 0.1);
+  --chat-text: #18181b;
+  --chat-muted: #71717a;
+  --chat-hover: rgba(0, 0, 0, 0.05);
+  --chat-bot-bg: #f1f3f8;
+  --chat-input-bg: #f4f4f5;
+  --chat-chip-border: rgba(0, 0, 0, 0.1);
+  --chat-chip-bg: rgba(0, 0, 0, 0.03);
+  --chat-chip-text: #52525b;
+
   --scrollbar-track: #f8f9fc;
   --selection-bg: rgba(124, 58, 237, 0.2);
 }
