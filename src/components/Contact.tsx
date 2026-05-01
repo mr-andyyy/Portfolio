@@ -226,7 +226,17 @@ const Contact = () => {
                 <div className="p-5 mt-6 rounded-xl border border-neon-lime/30 bg-neon-lime/5 flex items-center gap-4 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-1 h-full bg-neon-lime shadow-[0_0_10px_rgba(163,230,53,0.5)]"></div>
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-neon-lime/20 flex items-center justify-center text-neon-lime">
-                    <Sparkles size={20} />
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-5 h-5 animate-draw-check"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
                   </div>
                   <div>
                     <div className="text-neon-lime font-display font-bold text-lg">Transmission Successful</div>
@@ -238,7 +248,18 @@ const Contact = () => {
                 <div className="p-5 mt-6 rounded-xl border border-red-500/30 bg-red-500/5 flex items-center gap-4 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-1 h-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
-                    <span className="font-bold font-mono">!</span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="w-5 h-5 animate-draw-check"
+                    >
+                      <path d="M12 6v8" />
+                      <line x1="12" y1="18" x2="12.01" y2="18" />
+                    </svg>
                   </div>
                   <div>
                     <div className="text-red-400 font-display font-bold text-lg">Transmission Failed</div>
