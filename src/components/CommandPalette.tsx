@@ -355,6 +355,7 @@ const CommandPalette = () => {
           ref={listRef}
           className="max-h-[55vh] overflow-y-auto p-2"
           style={{ scrollbarWidth: 'thin' }}
+          data-lenis-prevent
         >
           {filtered.length === 0 ? (
             <div

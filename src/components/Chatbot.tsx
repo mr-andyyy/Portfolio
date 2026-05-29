@@ -227,7 +227,7 @@ const Chatbot = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin">
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin" data-lenis-prevent>
             {messages.map((msg) => (
               <div
                 key={msg.id}
