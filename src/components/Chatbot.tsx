@@ -1,73 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles, Bot, User } from 'lucide-react';
 
-/* ─── Anand's complete profile (system context) ─── */
-const SYSTEM_PROMPT = `You are Anand Kumar's personal AI assistant embedded on his portfolio website. You speak in a friendly, concise, professional tone. Use markdown bold (**text**) for emphasis. Use emojis sparingly but effectively.
-
-IMPORTANT RULES:
-- You MUST answer questions about Anand using the information below.
-- For general/unrelated questions (like "write a paragraph on cow"), politely answer briefly and then redirect to Anand's portfolio: "By the way, if you'd like to know about Anand's work, just ask!"
-- Never make up information about Anand that isn't provided below.
-- Keep responses concise (2-4 short paragraphs max). Use bullet points for lists.
-- If asked "who are you", say you're Anand's AI portfolio assistant.
-
-═══ ABOUT ANAND ═══
-Anand Kumar is a Software Developer currently working at OptyStack Tech Pvt Ltd in Gurugram, India. He graduated from NIT Jamshedpur in 2024 with a B.Tech in Electronics & Communication (CGPA 8.0). He's passionate about building production-grade SaaS, full-stack web apps, competitive programming, and mobile development with Flutter. He was an NSS Event Management Lead and TEDx Bistupur volunteer.
-
-═══ WORK EXPERIENCE ═══
-1. Software Developer at OptyStack Tech Pvt Ltd (Aug 2025 — Present, Gurugram, Haryana)
-   - Building a multi-tenant SaaS Management Dashboard on Next.js App Router with Prisma + PostgreSQL
-   - Integrated 50+ enterprise apps (Google Workspace, Okta, Dropbox, etc.) for unified user/access management with alerts and reporting
-   - Architected AWS backend services across EC2, Lambda, EventBridge, and Parameter Store
-   - Owned a custom GitHub Actions CI/CD pipeline for repeatable, automated deploys
-
-2. Software Development Engineer at NetNXT Network (Mar 2025 — Jul 2025, Gurugram, Haryana)
-   - Shipped frontend features and REST integrations on the company website using Next.js + Express + MongoDB
-   - Built a parameter-based cost calculator tool supporting multiple service tiers
-   - Crafted dynamic, interactive UI components with smooth data fetching and state
-
-═══ PROJECTS ═══
-1. SaaS Management Dashboard (OptyStack · Production) — Multi-tenant access-management platform with 50+ enterprise app integrations, custom RBAC, alert workflows, AWS-native backend. Tech: Next.js, Prisma, PostgreSQL, AWS, GitHub Actions. LIVE in production.
-
-2. Milk & Muse PoS — Multi-platform Point of Sale ecosystem:
-   - Android App: Flutter-based for in-store ops — orders, thermal printing (Bluetooth/USB/Network via ESC/POS), coupons, offline support. State mgmt with Riverpod. Local SQLite DB synced via PowerSync.
-   - Web Dashboard: React + Fastify for owners — analytics, catalog, store config. Drizzle ORM + PostgreSQL.
-   - Offline-first sync via PowerSync. Multi-tenant, multi-store data scoping.
-   Tech: Flutter, Dart, Riverpod, PowerSync, SQLite, React, Fastify, Drizzle ORM, PostgreSQL.
-
-3. CryptoNewz — Real-time crypto portfolio tracker. 100+ coins, live prices, charts, curated news. Tech: React, Redux Toolkit, ChartJS, Ant Design, RapidAPI.
-   Live: https://anand-cryptonewz.netlify.app/ | Code: https://github.com/mr-andyyy/CryptoNewz
-
-4. Travel Blog — Full-stack blogging platform with JWT auth, image uploads, role-aware routes, Material UI. Tech: Next.js, Node.js, Express, PostgreSQL, Material UI.
-   Live: https://anand-travel-blog.netlify.app/ | Code: https://github.com/mr-andyyy/travel-blog
-
-5. Cost Calculator Engine (NetNXT · Internal) — Multi-service pricing calculator with parameter-driven tiers used by sales for instant client quotes.
-
-═══ TECH STACK ═══
-Languages: C++, TypeScript, JavaScript, Python, Dart, HTML/CSS, SQL
-Frontend: Next.js (App Router), React.js, Redux Toolkit, Tailwind CSS, Material UI, Ant Design
-Backend: Node.js, Express.js, Fastify, Prisma ORM, Drizzle ORM, REST APIs
-Databases: PostgreSQL, MongoDB, SQLite, PowerSync
-Cloud/DevOps: AWS EC2, AWS Lambda, EventBridge, Parameter Store, Docker, GitHub Actions CI/CD
-Mobile: Flutter, Dart, Riverpod, PowerSync, ESC/POS Printing
-ML/AI: PyTorch, TensorFlow, NumPy/Pandas
-Tooling: Git/GitHub, VS Code, Postman, Vite, Vercel
-
-═══ COMPETITIVE PROGRAMMING ═══
-- CodeChef: 6★ (Rating 2203) — Global Rank 19 in Starters 160 (Div 1). Profile: https://www.codechef.com/users/dedh00ma
-- LeetCode: Guardian (Rating 2123) — Global #228, India Rank 23 in Weekly 354. Profile: https://leetcode.com/u/dedhooma/
-- Codeforces: Expert (Rating 1620) — Global Rank 69 in Round 981 (Div 3). Profile: https://codeforces.com/profile/dedhooma.xd
-- GeeksforGeeks: Coding Score 2833 — Global Rank #7 in Weekly Contest 113, Institute Rank 30. Profile: https://www.geeksforgeeks.org/profile/anandkumar4549
-- Member of Competitive Programming Team at SECE, NIT Jamshedpur
-
-═══ CONTACT ═══
-Email: anandkumar4549@gmail.com
-Phone: +91 8210014035
-LinkedIn: https://www.linkedin.com/in/anand-kumar-591431211/
-GitHub: https://github.com/mr-andyyy
-Location: Gurugram, India
-Status: Open to opportunities (full-time, freelance, collaborations)`;
-
 /* ─── Quick questions ─── */
 const QUICK_QUESTIONS = [
   'Tell me about Anand',
@@ -79,47 +12,42 @@ const QUICK_QUESTIONS = [
   'Tell me about his CP achievements',
 ];
 
-/* ─── Groq API (OpenAI-compatible) ─── */
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-
+/* ─── Chat API (serverless proxy in api/chat.ts keeps the Groq key off the client) ─── */
 type ChatMessage = {
-  role: 'system' | 'user' | 'assistant';
+  role: 'user' | 'assistant';
   content: string;
 };
 
-async function callGroq(
-  userMessage: string,
+async function askAssistant(
+  message: string,
   history: ChatMessage[]
 ): Promise<string> {
-  const messages: ChatMessage[] = [
-    { role: 'system', content: SYSTEM_PROMPT },
-    ...history,
-    { role: 'user', content: userMessage },
-  ];
-
-  const response = await fetch(GROQ_URL, {
+  const response = await fetch('/api/chat', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
-      messages,
-      temperature: 0.7,
-      max_tokens: 512,
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, history }),
   });
 
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.status}`);
+  const data = await response.json().catch(() => null);
+  if (!response.ok || typeof data?.reply !== 'string') {
+    throw new Error(`Chat API error: ${response.status} ${data?.error ?? ''}`);
   }
+  return data.reply;
+}
 
-  const data = await response.json();
-  const text = data?.choices?.[0]?.message?.content;
-  if (!text) throw new Error('Empty response from Groq');
-  return text;
+/* ─── Minimal markdown → HTML (escapes first so model output can't inject markup) ─── */
+function renderMarkdown(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(
+      /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2">$1</a>'
+    )
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br/>');
 }
 
 /* ─── Types ─── */
@@ -169,7 +97,7 @@ const Chatbot = () => {
     setIsTyping(true);
 
     try {
-      const reply = await callGroq(msg, chatHistory);
+      const reply = await askAssistant(msg, chatHistory);
 
       // Update conversation history
       setChatHistory((prev) => [
@@ -181,7 +109,7 @@ const Chatbot = () => {
       const botMsg: Message = { id: Date.now() + 1, text: reply, sender: 'bot' };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
-      console.error('Groq API error:', err);
+      console.error('Chat error:', err);
       const errorMsg: Message = {
         id: Date.now() + 1,
         text: "Oops, I'm having trouble connecting right now. 😅 You can reach Anand directly at **anandkumar4549@gmail.com** or try again in a moment!",
@@ -250,11 +178,7 @@ const Chatbot = () => {
                     ? 'bg-[var(--chat-bot-bg)] text-[var(--chat-text)] rounded-tl-md'
                     : 'bg-gradient-to-r from-neon-cyan to-neon-violet text-black font-medium rounded-tr-md'
                     }`}
-                  dangerouslySetInnerHTML={{
-                    __html: msg.text
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n/g, '<br/>'),
-                  }}
+                  dangerouslySetInnerHTML={{ __html: renderMarkdown(msg.text) }}
                 />
               </div>
             ))}
@@ -312,6 +236,7 @@ const Chatbot = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                maxLength={1000}
                 placeholder="Ask me anything..."
                 className="flex-1 bg-[var(--chat-input-bg)] border border-[var(--chat-border)] rounded-xl px-4 py-2.5 text-[13px] text-[var(--chat-text)] placeholder-[var(--chat-muted)] focus:outline-none focus:border-neon-cyan/50 focus:ring-1 focus:ring-neon-cyan/20 transition-all"
               />
